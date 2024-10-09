@@ -4,7 +4,7 @@ export default function UserForm() {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        fetch('https://3fk770zb-3000.brs.devtunnels.ms/users/get')
+        fetch('https://luckywheelbackend.onrender.com/users/get')
             .then(response => response.json())
             .then(data => setUsers(data))
             .catch(error => console.error('Error:', error));
@@ -30,7 +30,7 @@ export default function UserForm() {
             return;
         } 
 
-        fetch('https://3fk770zb-3000.brs.devtunnels.ms/users/save', {
+        fetch('https://luckywheelbackend.onrender.com/users/save', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
