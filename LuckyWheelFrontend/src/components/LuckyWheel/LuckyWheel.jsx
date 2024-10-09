@@ -56,15 +56,70 @@ const data = [
   },
 ];
 
+const originalPrizes = [
+  { option: "Yerbera", stock: 3, img: "yerbera.jpg", gender: "fem" },
+  { option: "Bolso Matero", stock: 2, img: "set-matero-6.webp", gender: "masc" },
+  { option: "Segui Participando", stock: 5 }
+];
+
+function generateWheelData() {
+  const visibleData = [];
+
+  originalPrizes.forEach((prize) => {
+    // Solo agregar si el stock es mayor a 0
+    if (prize.stock > 0) {
+      // Agregar 3 visualizaciones del premio, para que aparezcan en la ruleta
+      for (let i = 0; i < 3; i++) {
+        visibleData.push({
+          option: prize.option,
+          img: prize.img,
+          gender: prize.gender,
+          style: {
+            backgroundColor: prize.option === "Segui Participando" ? "white" : "#BC0D0D",
+            textColor: prize.option === "Segui Participando" ? "black" : "white",
+          }
+        });
+      }
+    }
+  });
+
+  return visibleData;
+}
+
+function handlePrizeWon(prizeName, setWheelData) {
+  // Buscar el premio en la lista original
+  const prize = originalPrizes.find(p => p.option === prizeName);
+
+  // Verificar si tiene stock
+  if (prize && prize.stock > 0) {
+    // Reducir el stock
+    prize.stock -= 1;
+
+    // Si el stock llega a 0, eliminarlo de la ruleta
+    if (prize.stock === 0) {
+      console.log(`${prize.option} se ha agotado.`);
+    }
+
+    // Regenerar los datos visibles para la ruleta
+    const updatedWheelData = generateWheelData();
+
+    // Actualizar el estado de la ruleta con los nuevos datos
+    setWheelData(updatedWheelData);
+  }
+}
+
+
 function LuckyWheel() {
   const [mustSpin, setMustSpin] = useState(false);
   const [prizeNumber, setPrizeNumber] = useState(0);
   const [spinCount, setSpinCount] = useState(0);
   const [showResult, setShowResult] = useState(false);
+  const [wheelData, setWheelData] = useState(generateWheelData());
+
 
   const handleSpinClick = () => {
     const user = JSON.parse(localStorage.getItem("user"));
-    if (user.spinCount >= 2) {
+    if (user.spinCount >= 20) {
       alert("Ya has tirado dos veces, no puedes continuar");
     } else {
       const newSpinCount = user.spinCount + 1;
@@ -76,7 +131,7 @@ function LuckyWheel() {
         })
       );
       setShowResult(false);
-      const newPrizeNumber = Math.floor(Math.random() * data.length);
+      const newPrizeNumber = Math.floor(Math.random() * wheelData.length);
       setPrizeNumber(newPrizeNumber);
       setMustSpin(true);
     }
@@ -84,6 +139,8 @@ function LuckyWheel() {
 
   const handleStop = () => {
     setSpinCount(spinCount + 1);
+    const wonPrize = wheelData[prizeNumber].option;
+    handlePrizeWon(wonPrize, setWheelData); // Actualizar stock y ruleta
     setMustSpin(false);
     setShowResult(true);
   };
@@ -102,7 +159,7 @@ function LuckyWheel() {
         mustStartSpinning={mustSpin}
         prizeNumber={prizeNumber}
         onStopSpinning={handleStop}
-        data={data}
+        data={wheelData}
         backgroundColors={["#BC0D0D", "#BC0D0D"]}
         textColors={["#ffffff"]}
         spinDuration={0.3}
