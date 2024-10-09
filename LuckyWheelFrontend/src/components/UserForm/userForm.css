@@ -1,0 +1,114 @@
+body{
+    background-color: #BC0D0D !important;
+}
+#root{
+    background-color: #BC0D0D !important;
+}
+.user-form-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #BC0D0D;
+}
+
+.logo-container{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 100%;
+    img{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    h2{
+        font-size: 1em;
+    }
+}
+
+
+.user-form-title{
+    color: white;
+    margin: 5px;
+}
+
+.user-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #BC0D0D;
+    width: 400px;
+    height: 300px;
+    border-radius: 10px;
+    margin-top: 180px;
+    input, select{
+        margin: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid white;
+        outline: none;
+        background-color: #BC0D0D;
+        color: white;
+        width: 95%;
+        &::placeholder{
+            color: white;
+        }
+    }
+    select{
+        width: 100%;
+    }
+
+    @media screen and (max-width: 768px) {
+        width: 100%;
+        /* height: auto; */
+    }
+}
+
+.names-input-container{
+    margin:0px;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+    .names-input-container{
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 0 !important;
+        margin: 0px 0px;
+        input{
+            width: 100%;
+            margin: 10px 0px;
+        }
+    } 
+}
+
+
+.user-form-submit-button{
+    margin: 10px;
+    margin-bottom: 180px;
+    padding: 10px;
+    color: black;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background-color: white;
+    &:hover{
+        /* background-color: brown;
+        color: white; */
+        /* border: 1px solid white; */
+        transform: scale(1.1);
+    }
+}
