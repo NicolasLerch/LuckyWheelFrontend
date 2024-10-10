@@ -191,9 +191,7 @@ function LuckyWheel() {
           setShowResult={setShowResult}
         />
       )}
-      <div className="footer">
-        <Link to="https://nlerchdev.com/" target="_blank">Desarrollado por Nicolás Lerch</Link>
-      </div>
+      
     </>
   );
 }
