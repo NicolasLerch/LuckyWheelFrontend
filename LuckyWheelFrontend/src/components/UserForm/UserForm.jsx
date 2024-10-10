@@ -75,9 +75,7 @@ export default function UserForm() {
                 <input type='text' placeholder='Empresa' name='company' />
                 <button className="user-form-submit-button" type="submit">Registrarse</button>
             </form>
-            <div className="footer">
-        <Link to="https://nlerchdev.com/" target="_blank">Desarrollado por Nicolás Lerch</Link>
-      </div>
+            
         </div>
     )
 }
