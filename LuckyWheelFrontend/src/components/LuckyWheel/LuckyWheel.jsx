@@ -16,20 +16,18 @@ function LuckyWheel() {
   useEffect(() => {
     const fetchPrizesAndUpdateWheelData = async () => {
       try {
-        const response = await fetch("http://localhost:3000/prizes/get", {
+        const response = await fetch("https://luckywheelbackend.onrender.com/prizes/get", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
         });
         const data = await response.json();
-        console.log("Premios recibidos del backend:", data);
 
         setPrizes(data);
 
         // Si generateWheelData es async, usamos await aquí
         const updatedWheelData = await generateWheelData(data);
-        console.log("Datos generados para la ruleta:", updatedWheelData);
 
         setWheelData(updatedWheelData);
       } catch (error) {
@@ -51,10 +49,9 @@ function LuckyWheel() {
       }
     });
 
-    console.log("stock", prizesInStock);
 
     // Determinar la cantidad máxima de visualizaciones por premio
-    const totalVisualizations = Math.min(prizesInStock.length * 3, 9); // Por ejemplo, un máximo de 9 visualizaciones
+    const totalVisualizations = Math.min(prizesInStock.length * 3, 12); // Por ejemplo, un máximo de 9 visualizaciones
 
     for (let i = 0; i < totalVisualizations; i++) {
       const prize = prizesInStock[i % prizesInStock.length]; // Alternar entre premios
@@ -90,13 +87,12 @@ function LuckyWheel() {
   async function handlePrizeWon(prizeName, setWheelData) {
     // Encontrar el premio en la lista actual
     const prize = prizes.find((p) => p.option === prizeName);
-    console.log(prize);
 
     // Verificar si tiene stock
     if (prize && prize.stock > 0) {
       try {
         // Hacer una llamada al backend para actualizar el stock
-        const response = await fetch("http://localhost:3000/prizes/update", {
+        const response = await fetch("https://luckywheelbackend.onrender.com/prizes/update", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -126,7 +122,7 @@ function LuckyWheel() {
 
   const handleSpinClick = () => {
     const user = JSON.parse(localStorage.getItem("user"));
-    if (user.spinCount >= 200) {
+    if (user.spinCount >= 2) {
       alert("Ya has tirado dos veces, no puedes continuar");
     } else {
       const newSpinCount = user.spinCount + 1;

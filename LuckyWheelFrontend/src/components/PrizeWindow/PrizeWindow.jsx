@@ -8,7 +8,7 @@ export default function PrizeWindow({ data, showResult, setShowResult }) {
     const handleBackToStart = (e) => {
         e.preventDefault();
         window.location.href = "/";
-        // localStorage.removeItem("user");
+        localStorage.removeItem("user");
     }
 
   return showResult ? (
