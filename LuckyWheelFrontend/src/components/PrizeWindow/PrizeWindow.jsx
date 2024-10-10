@@ -14,7 +14,7 @@ export default function PrizeWindow({ data, showResult, setShowResult }) {
   return showResult ? (
     <div className="overlay">
             <div className="prize-window-container">
-                {data.option === "Segui Participando" ? (
+                {data.option === "Proba de nuevo" ? (
                     <>
                     <h2>Intenta de nuevo!</h2>
                     <h3>Tienes otra oportunidad</h3>
