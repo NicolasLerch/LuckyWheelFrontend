@@ -121,7 +121,7 @@ function LuckyWheel() {
 
   const handleSpinClick = () => {
     const user = JSON.parse(localStorage.getItem("user"));
-    if (user.spinCount >= 20) {
+    if (user.spinCount >= 2) {
       alert("Ya has tirado dos veces, no puedes continuar");
     } else {
       const newSpinCount = user.spinCount + 1;
