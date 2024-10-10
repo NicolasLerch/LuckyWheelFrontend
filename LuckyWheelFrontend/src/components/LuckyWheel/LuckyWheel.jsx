@@ -67,7 +67,7 @@ function LuckyWheel() {
         let style = {
             backgroundColor: colors[colorIndex],
             textColor: colors[colorIndex] === "white" ? "black" : "white", // Cambiar el color del texto si el fondo es blanco
-            fontSize: prize.option === "Segui Participando" ? "16" : "20",
+            fontSize: prize.option === "Proba de nuevo" ? "16" : "20",
         };
 
         // Agregar el premio al array intercalado
