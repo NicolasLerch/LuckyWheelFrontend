@@ -21,13 +21,19 @@
     border-radius: 15px;
     img{
         display: flex;
-        height: 300px;
+        width: 80%;
         margin: auto;
     }
     button{
         margin: 30px 10px;
     }
-    @media(max-width: 768px){
+    @media(max-width: 1025px){
         width: 80%;
+    }
+}
+
+@media(max-width: 768px){
+    .prize-window-container img {
+        width: 100%;
     }
 }

@@ -38,51 +38,50 @@ function LuckyWheel() {
     fetchPrizesAndUpdateWheelData();
   }, []);
 
+
   async function generateWheelData(prizes) {
     const visibleData = [];
     const prizesInStock = [];
-
+    
     // Filtrar premios que tienen stock
     prizes.forEach((prize) => {
-      if (prize.stock > 0) {
-        prizesInStock.push(prize);
-      }
+        if (prize.stock > 0) {
+            prizesInStock.push(prize);
+        }
     });
 
+    console.log("stock", prizesInStock);
 
     // Determinar la cantidad máxima de visualizaciones por premio
-    const totalVisualizations = Math.min(prizesInStock.length * 3, 12); // Por ejemplo, un máximo de 9 visualizaciones
+    const totalVisualizations = Math.min(prizesInStock.length * 3, 18); // Aumentar el total de visualizaciones
 
+    // Colores alternativos para los premios
+    const colors = ["#BC0D0D", "black", "white"];
+    
     for (let i = 0; i < totalVisualizations; i++) {
-      const prize = prizesInStock[i % prizesInStock.length]; // Alternar entre premios
+        const prize = prizesInStock[i % prizesInStock.length]; // Alternar entre premios
+        const colorIndex = i % colors.length; // Alternar entre colores
+        
 
-      // Definir el estilo según el premio
-      let style;
-      switch (prize.option) {
-        case "Yerbera":
-          style = { backgroundColor: "#BC0D0D", textColor: "white" };
-          break;
-        case "Bolso Matero":
-          style = { backgroundColor: "black", textColor: "white" };
-          break;
-        case "Segui Participando":
-          style = { backgroundColor: "white", textColor: "black" };
-          break;
-        default:
-          style = { backgroundColor: "gray", textColor: "white" };
-      }
+        // Establecer el estilo usando el color alternado
+        let style = {
+            backgroundColor: colors[colorIndex],
+            textColor: colors[colorIndex] === "white" ? "black" : "white", // Cambiar el color del texto si el fondo es blanco
+            fontSize: prize.option === "Segui Participando" ? "16" : "20",
+        };
 
-      // Agregar el premio al array intercalado
-      visibleData.push({
-        option: prize.option,
-        img: prize.img,
-        gender: prize.gender,
-        style: style,
-      });
+        // Agregar el premio al array intercalado
+        visibleData.push({
+            option: prize.option,
+            img: prize.img,
+            gender: prize.gender,
+            style: style,
+        });
     }
 
     return visibleData.length > 0 ? visibleData : [];
-  }
+}
+
 
   async function handlePrizeWon(prizeName, setWheelData) {
     // Encontrar el premio en la lista actual
@@ -122,7 +121,7 @@ function LuckyWheel() {
 
   const handleSpinClick = () => {
     const user = JSON.parse(localStorage.getItem("user"));
-    if (user.spinCount >= 2) {
+    if (user.spinCount >= 20) {
       alert("Ya has tirado dos veces, no puedes continuar");
     } else {
       const newSpinCount = user.spinCount + 1;
@@ -167,12 +166,12 @@ function LuckyWheel() {
           data={wheelData}
           backgroundColors={["#BC0D0D", "#BC0D0D"]}
           textColors={["#ffffff"]}
-          spinDuration={0.3}
-          outerBorderWidth={3}
+          spinDuration={0.6}
+          outerBorderWidth={1}
           outerBorderColor="white"
-          innerRadius={10}
+          innerRadius={0}
           radiusLineWidth={0}
-          fontSize={20}
+          // fontSize={20}
           textDistance={58}
         />
       ) : (
